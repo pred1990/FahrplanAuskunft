@@ -16,20 +16,23 @@
 		<div id="header">
 			<ui:insert name="header"> </ui:insert>
 		</div>
-		<ui:insert name="content"> </ui:insert>
-		<div>
-			<h1 class="header">Login</h1>
-			<h:panelGrid columns="2">
-				<h:outputText value="User:" />
-				<h:inputText id="userName" />
+		<div id="content">
+			<ui:insert name="content"> </ui:insert>
+			<h:form>
+				<h1 class="header">Login</h1>
+				<h:panelGrid  var="user" value="#{User}" columns="2">
+					<h:outputText value="User:" />
+					<h:inputText id="user" value="#{userHandler.user.name}"/>
 
 
-				<h:outputText value="Password:" />
-				<h:inputSecret id="password" />
+					<h:outputText value="Password:" />
+					<h:inputSecret id="password" value="#{userHandler.user.password}"/>
 
-				<h:commandButton action="#{loginHandler.login()}" value="Login" />
-				<div align="right"> <a href="search.xhtml">register</a> </div>
-			</h:panelGrid>
+					<h:commandButton action="#{userHandler.login()}" value="Login" />
+					<div align="right"> <a href="search.xhtml">register</a> </div>
+				</h:panelGrid>
+			
+			</h:form>
 
 		</div>
 		<div id="footer">

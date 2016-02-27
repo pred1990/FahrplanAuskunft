@@ -18,22 +18,7 @@
 		</div>
 		<div id="content">
 			<ui:insert name="content"> </ui:insert>
-			<h:form>
-				<h1 class="header">Login</h1>
-				<h:panelGrid  var="user" value="#{User}" columns="2">
-					<h:outputText value="User:" />
-					<h:inputText id="user" value="#{userHandler.user.name}"/>
-
-
-					<h:outputText value="Password:" />
-					<h:inputSecret id="password" value="#{userHandler.user.password}"/>
-
-					<h:commandButton action="#{userHandler.login()}" value="Login" />
-					<div align="right"> <a href="search.xhtml">register</a> </div>
-				</h:panelGrid>
-			
-			</h:form>
-
+			<h:outputText value="logged In" />
 		</div>
 		<div id="footer">
 			<ui:insert name="footer"> </ui:insert>
