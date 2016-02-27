@@ -53,8 +53,8 @@ public class UserHandler {
 	
 	public String login(){
 		
-		Query statement = entityManager.createQuery("SELECT k FROM User k WHERE k.user = :user AND k.password = :password");
-		statement.setParameter("user", user.getName());
+		Query statement = entityManager.createQuery("SELECT k FROM User k WHERE k.name = :name AND k.password = :password");
+		statement.setParameter("name", user.getName());
 		statement.setParameter("password", user.getPassword());
 
 		List<User> userList = statement.getResultList();
