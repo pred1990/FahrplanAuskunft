@@ -13,6 +13,7 @@
 		</title>
 	</h:head>
 	<h:body>
+		<f:event listener="#{loginHandler.isLoggedIn()}" type="preRenderView" />
 		<div id="header">
 			<ui:insert name="header"> </ui:insert>
 		</div>
