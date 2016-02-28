@@ -10,7 +10,7 @@ public abstract class User_ {
 
 	public static volatile SingularAttribute<User, String> password;
 	public static volatile SingularAttribute<User, String> name;
-	public static volatile SingularAttribute<User, Integer> ID;
+	public static volatile SingularAttribute<User, Integer> id;
 
 }
 

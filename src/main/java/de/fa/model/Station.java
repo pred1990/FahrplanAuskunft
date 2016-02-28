@@ -7,40 +7,25 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-@Entity
-public class User implements Serializable{
-
-	private static final long serialVersionUID = -234117152061307728L;
+//@Entity
+public class Station implements Serializable {
+	
+	private static final long serialVersionUID = 7614888473248106799L;
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Integer id;
 	
 	private String name;
-	private String password;
 	
-	public User(){
-	}
+	public Station(){}
 	
-	public User(String name, String password){
-		this.name = name;
-		this.password = password;
-	}
-
 	public String getName() {
 		return name;
 	}
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
 	}
 	
 }
