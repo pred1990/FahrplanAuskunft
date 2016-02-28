@@ -1,8 +1,0 @@
-@IMPORT url("DesignLogin.css");
-@CHARSET "ISO-8859-1";
-
-
-/* Note(msk) Vererbung durch @Import möglich überschreiben von Attrib. ebenfalls*/
-body {
-	width: 1000px;
-}
