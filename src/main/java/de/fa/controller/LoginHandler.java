@@ -79,8 +79,8 @@ public class LoginHandler {
 		
 	}
 	
-	public void Logout(){
-		
+	public void logout(){
+		user = null;
 		
 	}
 
