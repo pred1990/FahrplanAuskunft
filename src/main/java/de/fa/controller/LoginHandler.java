@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
+import javax.faces.application.FacesMessage;
+import javax.faces.application.FacesMessage.Severity;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
@@ -12,6 +14,11 @@ import javax.faces.model.ListDataModel;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.transaction.HeuristicMixedException;
+import javax.transaction.HeuristicRollbackException;
+import javax.transaction.NotSupportedException;
+import javax.transaction.RollbackException;
+import javax.transaction.SystemException;
 import javax.transaction.UserTransaction;
 
 import de.fa.model.User;
@@ -30,6 +37,7 @@ public class LoginHandler {
 	
 	private String name;
 	private String password;
+	private String passwordRepeat;
 	private User user;
 	
 	@PostConstruct
@@ -42,11 +50,7 @@ public class LoginHandler {
 			
 			users = new ListDataModel<>();
 			
-			
-			List<User> test = entityManager.createQuery("select k from User k").getResultList();
-			System.out.println(test.size());
-			
-			users.setWrappedData(test);
+			users.setWrappedData(entityManager.createQuery("select k from User k").getResultList());
 			transaction.commit();
 		} catch (Exception e) {
 			//To many exceptions
@@ -83,6 +87,42 @@ public class LoginHandler {
 		user = null;
 		
 	}
+	
+	public String register(){
+		if(password.equals(passwordRepeat)){
+			
+			try {
+				transaction.begin();
+
+				Query query = entityManager.createQuery("select k from User k where name = :name");
+				
+				query.setParameter("name", name);
+
+				List<User> entrys = query.getResultList();
+				
+				if(entrys.size() > 0){
+					return null;
+				}
+					
+
+				User newUser = new User(name, password);
+				entityManager.persist(newUser);
+
+				transaction.commit();
+				System.out.println("Done");
+				return "/index.xhtml";
+			}  catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return null;
+		} else {
+			FacesContext.getCurrentInstance().addMessage("register:reg", new FacesMessage("Passwort stimmt nicht überein"));
+			
+			return null;
+		}
+		
+	}
 
 	public DataModel<User> getUsers() {
 		return users;
@@ -114,6 +154,14 @@ public class LoginHandler {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public String getPasswordRepeat() {
+		return passwordRepeat;
+	}
+
+	public void setPasswordRepeat(String passwordRepeat) {
+		this.passwordRepeat = passwordRepeat;
 	}
 	
 	
