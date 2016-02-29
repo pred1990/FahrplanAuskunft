@@ -1,15 +1,23 @@
 package de.fa.model;
 
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.List;
 
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-//@Entity
+/**
+ * The Route class represents a sequence of Stations which are visited by vehicles in that order.
+ * Each route also contains an identifier which is split into two parts: 
+ * the name of the route (generally an integer) and 
+ * the direction (generally the name of the Route's final destination).
+ * @author Daniel
+ *
+ */
+@Entity
 public class Route implements Serializable {
 
 	private static final long serialVersionUID = 4956399724795853303L;
@@ -17,10 +25,10 @@ public class Route implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Integer id;
-	
 	private String name;
 	private String direction;
-	private Collection<Station> stations;
+	@ElementCollection(targetClass=Station.class)
+	private List<Station> stations;
 	
 	public Route(){}
 
@@ -40,12 +48,17 @@ public class Route implements Serializable {
 		this.direction = direction;
 	}
 
-	public Collection<Station> getStations() {
+	public List<Station> getStations() {
 		return stations;
 	}
 
 	public void setStations(List<Station> stations) {
 		this.stations = stations;
+	}
+	
+	@Override
+	public String toString(){
+		return name + " " + direction;
 	}
 	
 }
