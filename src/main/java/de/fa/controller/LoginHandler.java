@@ -51,9 +51,9 @@ public class LoginHandler {
 			users = new ListDataModel<>();
 			
 			users.setWrappedData(entityManager.createQuery("select k from User k").getResultList());
+
 			transaction.commit();
 		} catch (Exception e) {
-			//To many exceptions
 			e.printStackTrace();
 		}
 	}
@@ -64,9 +64,9 @@ public class LoginHandler {
 		statement.setParameter("name", name);
 		statement.setParameter("password", password);
 
-		List<User> userList = statement.getResultList();
+		List<?> userList = statement.getResultList();
 		if(userList.size() == 1) {
-			user = userList.get(0);
+			user = (User) userList.get(0);
 			return "/LoggedIn.xhtml";
 		} else {
 			return null;
