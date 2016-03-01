@@ -25,11 +25,19 @@
          data source, this example data source is just for development and testing! -->
       <!-- The datasource is deployed as WEB-INF/FahrplanAuskunft-ds.xml, you
          can find it in the source at src/main/webapp/WEB-INF/FahrplanAuskunft-ds.xml -->
-      <jta-data-source>java:jboss/datasources/FahrplanAuskunftDS</jta-data-source>
+
+      <jta-data-source>java:jboss/datasources/FahrplanAuskunftDS</jta-data-source> 
+
       <properties>
          <!-- Properties for Hibernate -->
+
+         <!-- backup
          <property name="hibernate.hbm2ddl.auto" value="create-drop" />
          <property name="hibernate.show_sql" value="false" />
+		-->
+
+         <property name="hibernate.hbm2ddl.auto" value="create" />
+         <property name="hibernate.show_sql" value="true" />
       </properties>
    </persistence-unit>
 </persistence>
