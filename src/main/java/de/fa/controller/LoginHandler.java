@@ -39,9 +39,16 @@ public class LoginHandler {
 	public void init(){
 		try {
 			transaction.begin();
-			
-			entityManager.persist(new User("msk", "msk"));
-			entityManager.persist(new User("Daniel", "daniel"));
+			List<?> result = entityManager.createQuery("select k from User k where k.name = 'msk'").getResultList();
+			if(result.size() <= 0){
+				entityManager.persist(new User("msk", "msk"));
+				System.out.println("Info: creating user: msk");
+			}
+			result = entityManager.createQuery("select k from User k where k.name = 'daniel'").getResultList();
+			if(result.size() <= 0){
+				entityManager.persist(new User("Daniel", "daniel"));
+				System.out.println("Info: creating user daniel");
+			}
 			
 			users = new ListDataModel<>();
 			
@@ -62,8 +69,9 @@ public class LoginHandler {
 		List<?> userList = statement.getResultList();
 		if(userList.size() == 1) {
 			user = (User) userList.get(0);
-			return "/LoggedIn.xhtml";
+			return "/search.xhtml";
 		} else {
+			FacesContext.getCurrentInstance().addMessage("login:action", new FacesMessage("Eingaben Fehlerhaft"));
 			return null;
 		}
 		
@@ -112,7 +120,7 @@ public class LoginHandler {
 			}
 			return null;
 		} else {
-			FacesContext.getCurrentInstance().addMessage("register:reg", new FacesMessage("Passwort stimmt nicht überein"));
+			FacesContext.getCurrentInstance().addMessage("register:action", new FacesMessage("Passwort stimmt nicht überein"));
 			
 			return null;
 		}

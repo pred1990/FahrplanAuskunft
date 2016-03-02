@@ -17,9 +17,33 @@
 		<div id="header">
 			<ui:insert name="header"> </ui:insert>
 		</div>
-		<ui:insert name="content"> </ui:insert>
-		<div>
-			<h1 class="header">Suche</h1>
+		<div id="content">
+			<ui:insert name="content"> </ui:insert>
+			<h:form id="login">
+				<h1 class="header">Suche</h1>
+				<h:panelGrid columns="2">
+					<h:panelGrid columns="2">
+					
+						<h:outputText value="Start" />
+						<h:inputText id="start" value="#{searchHandler.start}" required="true"  requiredMessage="Pflicht Feld"/>
+						
+						<h:outputText value="Ziel" />
+						<h:inputText id="target" value="#{searchHandler.target}" required="true" requiredMessage="Pflicht Feld"/>
+						
+						<h:outputText value="Datum" />
+						<h:inputText id="date" value="#{searchHandler.date}" required="true" requiredMessage="Pflicht Feld"/>
+						
+						<h:outputText value="Abfahrts Zeit" />
+						<h:inputText id="time" value="#{searchHandler.time}" required="true" requiredMessage="Pflicht Feld"/>
+						
+						<h:commandButton id="action" action="searchHandler.search()" value="Suchen" class="btn"/>
+						<h:outputText value="" />
+						
+						<h:message for="action"/>
+						
+					</h:panelGrid>
+				</h:panelGrid>
+			</h:form>
 
 		</div>
 		<div id="footer">

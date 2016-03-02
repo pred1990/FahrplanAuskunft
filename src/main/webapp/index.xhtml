@@ -18,7 +18,7 @@
 		</div>
 		<div id="content">
 			<ui:insert name="content"> </ui:insert>
-			<h:form>
+			<h:form id="login">
 				<h1 class="header">Login</h1>
 				<h:panelGrid columns="2">
 					<h:outputText value="User:" />
@@ -34,8 +34,9 @@
 						<h:message for="password" styleClass="message"/>
 					</h:panelGroup>
 
-					<h:commandButton action="#{loginHandler.login()}" value="Login" />
-					<div align="right"> <a href="Register.xhtml">register</a> </div>
+					<h:commandButton id="action" action="#{loginHandler.login()}" value="Login" class="btn"/>
+					<div align="right"> <a href="register.xhtml">register</a> </div>
+					<h:message for="action" styleClass="message" />
 				</h:panelGrid>
 			
 			</h:form>

@@ -48,6 +48,10 @@ tr.even {
 color: red; font-size: 14px;
 }
 
+.btn {
+  border-radius: 6px;
+}
+
 h1.header {
 	color: #2e5cb8;
 }
