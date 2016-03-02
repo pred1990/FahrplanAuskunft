@@ -36,7 +36,7 @@
 						<h:outputText value="Abfahrts Zeit" />
 						<h:inputText id="time" value="#{searchHandler.time}" required="true" requiredMessage="Pflicht Feld"/>
 						
-						<h:commandButton id="action" action="#{searchHandler.search()}" value="Suchen" class="btn"/>
+						<h:commandButton update="searchResult" id="action" action="#{searchHandler.search()}" value="Suchen" class="btn"/>
 						<h:outputText value="" />
 						
 						<h:message for="action"/>
