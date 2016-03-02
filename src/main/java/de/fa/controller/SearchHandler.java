@@ -1,11 +1,14 @@
 package de.fa.controller;
 
+import java.util.ArrayList;
 import java.util.Date;
 
-import javax.annotation.ManagedBean;
+import javax.crypto.SealedObject;
+import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
 import de.fa.model.ClockTime;
+import de.fa.model.SearchResult;
 
 @ManagedBean
 @SessionScoped
@@ -16,13 +19,15 @@ public class SearchHandler {
 	private String target;
 	private Date date;
 	private ClockTime time;
+	
+	private ArrayList<SearchResult> searchResult;
 
 	public SearchHandler(){
-		
+		searchResult = new ArrayList<>();
 	}
 	
 	public void search(){
-		
+		searchResult.add(new SearchResult(new ClockTime(12, 0), new ClockTime(12, 0), "test", "test"));
 	}
 
 	public String getStart() {

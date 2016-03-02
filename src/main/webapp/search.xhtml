@@ -36,13 +36,39 @@
 						<h:outputText value="Abfahrts Zeit" />
 						<h:inputText id="time" value="#{searchHandler.time}" required="true" requiredMessage="Pflicht Feld"/>
 						
-						<h:commandButton id="action" action="searchHandler.search()" value="Suchen" class="btn"/>
+						<h:commandButton id="action" action="#{searchHandler.search()}" value="Suchen" class="btn"/>
 						<h:outputText value="" />
 						
 						<h:message for="action"/>
 						
 					</h:panelGrid>
+						<h:dataTable id="searchResult" var="line">
+						
+							<h:column>
+								<f:facet name="header">Abfahrt</f:facet>
+								<!-- row record -->
+								#{line.depature}
+							</h:column>
+					
+							<h:column>
+								<f:facet name="header">Ankunft</f:facet>
+								#{line.arrival}
+							</h:column>
+					
+							<h:column>
+								<f:facet name="header">Station</f:facet>
+								#{line.station}
+							</h:column>
+					
+							<h:column>
+								<f:facet name="header">Line</f:facet>
+								#{line.line}
+							</h:column>
+						
+						</h:dataTable>
 				</h:panelGrid>
+				
+				<a href="/linienplan.xhtm">Linienplan</a>
 			</h:form>
 
 		</div>
