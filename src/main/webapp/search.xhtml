@@ -30,19 +30,16 @@
 						<h:outputText value="Ziel" />
 						<h:inputText id="target" value="#{searchHandler.target}" required="true" requiredMessage="Pflicht Feld"/>
 						
-						<h:outputText value="Datum" />
-						<h:inputText id="date" value="#{searchHandler.date}" required="true" requiredMessage="Pflicht Feld"/>
-						
 						<h:outputText value="Abfahrts Zeit" />
 						<h:inputText id="time" value="#{searchHandler.time}" required="true" requiredMessage="Pflicht Feld"/>
 						
-						<h:commandButton id="action" action="#{searchHandler.search()}" value="Suchen" class="btn"/>
+						<h:commandButton id="action" action="#{searchHandler.search()}" update="searchResult" value="Suchen" class="btn"/>
 						<h:outputText value="" />
 						
 						<h:message for="action"/>
 						
 					</h:panelGrid>
-						<h:dataTable id="searchResult" var="line">
+						<h:dataTable id="searchResult" var="line" value="#{searchHandler.searchResult}">
 						
 							<h:column>
 								<f:facet name="header">Abfahrt</f:facet>
