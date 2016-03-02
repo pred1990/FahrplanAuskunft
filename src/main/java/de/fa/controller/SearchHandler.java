@@ -17,7 +17,6 @@ public class SearchHandler {
 	
 	private String start;
 	private String target;
-	private Date date;
 	private ClockTime time;
 	
 	private ArrayList<SearchResult> searchResult;
@@ -27,7 +26,15 @@ public class SearchHandler {
 	}
 	
 	public void search(){
-		searchResult.add(new SearchResult(new ClockTime(12, 0), new ClockTime(12, 0), "test", "test"));
+		searchResult.add(new SearchResult("a", "b", "c", "d"));
+	}
+
+	public ArrayList<SearchResult> getSearchResult() {
+		return searchResult;
+	}
+
+	public void setSearchResult(ArrayList<SearchResult> searchResult) {
+		this.searchResult = searchResult;
 	}
 
 	public String getStart() {
@@ -44,14 +51,6 @@ public class SearchHandler {
 
 	public void setTarget(String target) {
 		this.target = target;
-	}
-
-	public Date getDate() {
-		return date;
-	}
-
-	public void setDate(Date date) {
-		this.date = date;
 	}
 
 	public ClockTime getTime() {
