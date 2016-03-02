@@ -1,13 +1,9 @@
 package de.fa.controller;
 
 import java.util.ArrayList;
-import java.util.Date;
-
-import javax.crypto.SealedObject;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
-import de.fa.model.ClockTime;
 import de.fa.model.SearchResult;
 
 @ManagedBean
