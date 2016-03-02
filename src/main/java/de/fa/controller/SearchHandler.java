@@ -17,7 +17,7 @@ public class SearchHandler {
 	
 	private String start;
 	private String target;
-	private ClockTime time;
+	private String time;
 	
 	private ArrayList<SearchResult> searchResult;
 
@@ -53,13 +53,14 @@ public class SearchHandler {
 		this.target = target;
 	}
 
-	public ClockTime getTime() {
+	public String getTime() {
 		return time;
 	}
 
-	public void setTime(ClockTime time) {
+	public void setTime(String time) {
 		this.time = time;
 	}
+	
 	
 	
 }
