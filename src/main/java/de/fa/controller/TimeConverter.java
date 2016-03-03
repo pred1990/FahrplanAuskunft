@@ -11,22 +11,27 @@ import de.fa.model.ClockTime;
 @FacesConverter(value="TimeConverter")
 public class TimeConverter implements Converter{
 
+	public static final String ERR_MSG = "hh:mm";
+	
 	@Override
 	public Object getAsObject(FacesContext context, UIComponent component, String value) {
 		//17:00
 		String[] values = value.split(":");
-		if(values.length == 2){
-			try{
-				return new ClockTime(Integer.valueOf(values[0]), Integer.valueOf(values[1]));
-			} catch(NumberFormatException e) {
-				writeMessage("search:"+component.getId(), "Fehler");
-				return null;
-			}
-		} else {
-
+		if(values.length != 2){
 			// do not handle empty Strings!
-			if(value.length() != 0)
-				writeMessage("search:"+component.getId(), "Fehler");
+			if(value.length() != 0){
+				writeMessage("search:"+component.getId(), ERR_MSG);
+			}
+			return null;
+		}
+		
+		try{
+			return new ClockTime(Integer.valueOf(values[0]), Integer.valueOf(values[1]));
+		} catch(NumberFormatException e) {
+			writeMessage("search:"+component.getId(), ERR_MSG);
+			return null;
+		} catch(IllegalArgumentException e){
+			writeMessage("search:"+component.getId(), ERR_MSG);
 			return null;
 		}
 	}
@@ -38,7 +43,6 @@ public class TimeConverter implements Converter{
 
 	private void writeMessage(String component, String message){
 		FacesContext.getCurrentInstance().addMessage(component, new FacesMessage(message));
-		
 	}
 	
 }

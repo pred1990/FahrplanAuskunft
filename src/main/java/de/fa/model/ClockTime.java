@@ -19,7 +19,7 @@ public class ClockTime implements Serializable {
 	
 	private static final long serialVersionUID = 2463076306164767605L;
 
-	private static final Integer MAX_VALUE = 24 * 60;
+	public static final Integer MAX_VALUE = 24 * 60;
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
@@ -28,7 +28,10 @@ public class ClockTime implements Serializable {
 	
 	public ClockTime(){}
 	
-	public ClockTime(Integer hours, Integer minutes){
+	public ClockTime(Integer hours, Integer minutes) throws IllegalArgumentException {
+		if(hours < 0 || hours > 23|| minutes < 0 || minutes > 59){
+			throw new IllegalArgumentException();
+		}
 		this.minutes = hours * 60 + minutes;
 	}
 
@@ -55,12 +58,10 @@ public class ClockTime implements Serializable {
 	
 	@Override
 	public String toString(){
-		String hoursString= String.valueOf(minutes / 60);
-		String minutesString = String.valueOf(minutes % 60);
-		minutesString = minutesString.length() <= 1 ? "0" + minutesString : minutesString;
-
-		return hoursString + ":" + minutesString;
-		//return (minutes / 60) + ":" + (minutes % 60);
+		int hrs = minutes / 60;
+		int mins = minutes % 60;
+		return (hrs == 0 ? "00" : String.valueOf(hrs)) + ":"
+				+ (mins == 0 ? "00" : String.valueOf(mins));
 	}
 	
 }
