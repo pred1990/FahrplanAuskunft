@@ -55,7 +55,12 @@ public class ClockTime implements Serializable {
 	
 	@Override
 	public String toString(){
-		return (minutes / 60) + ":" + (minutes % 60);
+		String hoursString= String.valueOf(minutes / 60);
+		String minutesString = String.valueOf(minutes % 60);
+		minutesString = minutesString.length() <= 1 ? "0" + minutesString : minutesString;
+
+		return hoursString + ":" + minutesString;
+		//return (minutes / 60) + ":" + (minutes % 60);
 	}
 	
 }

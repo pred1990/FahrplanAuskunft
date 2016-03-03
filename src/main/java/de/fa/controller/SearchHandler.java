@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
+import de.fa.model.ClockTime;
 import de.fa.model.SearchResult;
 
 @ManagedBean
@@ -13,7 +14,7 @@ public class SearchHandler {
 	
 	private String start;
 	private String target;
-	private String time;
+	private ClockTime time;
 	
 	private ArrayList<SearchResult> searchResult;
 
@@ -49,14 +50,12 @@ public class SearchHandler {
 		this.target = target;
 	}
 
-	public String getTime() {
+	public ClockTime getTime() {
 		return time;
 	}
 
-	public void setTime(String time) {
+	public void setTime(ClockTime time) {
 		this.time = time;
 	}
-	
-	
-	
+
 }

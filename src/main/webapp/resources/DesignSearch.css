@@ -1,8 +1,71 @@
-@IMPORT url("DesignLogin.css");
 @CHARSET "ISO-8859-1";
 
-
-/* Note(msk) Vererbung durch @Import möglich überschreiben von Attrib. ebenfalls*/
 body {
-	width: 1000px;
+	width: 750px;
+	border: 1px solid;
+	margin-left: auto;
+	margin-right: auto;
+	padding: 10px;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	
+}
+
+table {
+	width: 100%;
+}
+
+th {
+	background-color: #ccd2d3;
+	padding: 5px 5px 5px 5px;
+	border: 1px solid;
+}
+
+td {
+	padding: 0px 5px 0px 5px;
+	vertical-align: top;
+}
+
+td.body {
+	vertical-align: middle;
+}
+
+td.footer {
+	background-color: #ccd2d3;
+	border: 1px solid;
+	padding: 5px;
+}
+
+.fifty-percent {
+     width: 50%;
+}
+
+.fourty-percent {
+	width: 40%;
+}
+
+.thirty-percent {
+	width: 30%;
+}
+
+tr.odd {
+	background-color: #edf4f5;
+}
+
+tr.even {
+	background-color: #dae0e1;
+}
+
+.message {
+	color: red; 
+	font-size: 14px;
+	text-align: left;
+}
+
+.btn {
+  border-radius: 6px;
+}
+
+h1.header {
+	color: #2e5cb8;
 }

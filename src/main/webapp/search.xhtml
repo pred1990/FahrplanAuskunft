@@ -19,31 +19,36 @@
 		</div>
 		<div id="content">
 			<ui:insert name="content"> </ui:insert>
-			<h:form id="login">
+			<h:form id="search">
 				<h1 class="header">Suche</h1>
-				<h:panelGrid columns="2">
-					<h:panelGrid columns="2">
-					
-						<h:outputText value="Start" />
-						<h:inputText id="start" value="#{searchHandler.start}" required="true"  requiredMessage="Pflicht Feld"/>
-						
-						<h:outputText value="Ziel" />
-						<h:inputText id="target" value="#{searchHandler.target}" required="true" requiredMessage="Pflicht Feld"/>
-						
-						<h:outputText value="Abfahrts Zeit" />
-						<h:inputText id="time" value="#{searchHandler.time}" required="true" requiredMessage="Pflicht Feld"/>
-						
-<<<<<<< HEAD
-						<h:commandButton update="searchResult" id="action" action="#{searchHandler.search()}" value="Suchen" class="btn"/>
-=======
-						<h:commandButton id="action" action="#{searchHandler.search()}" update="searchResult" value="Suchen" class="btn"/>
->>>>>>> d3513882d9fe992e786501a4c39bdae92cf91efa
-						<h:outputText value="" />
-						
-						<h:message for="action"/>
-						
-					</h:panelGrid>
-						<h:dataTable id="searchResult" var="line" value="#{searchHandler.searchResult}">
+				<h:panelGrid columns="2" columnClasses="fifty-percent, fifty-percent">
+						<h:panelGrid columns="3" columnClasses="thirty-percent, fourty-percent, thirty-percent">
+							
+							<h:outputText value="Start" />
+							<h:inputText id="start" value="#{searchHandler.start}" required="true"  requiredMessage="Pflicht Feld">
+							</h:inputText>
+							<h:message for="start" styleClass="message"/>
+							
+							<h:outputText value="Ziel" />
+							<h:inputText id="target" value="#{searchHandler.target}" required="true" requiredMessage="Pflicht Feld">
+							</h:inputText>
+							<h:message for="target" styleClass="message"/>
+							
+							<h:outputText value="Abfahrts Zeit" />
+							<h:inputText id="time" value="#{searchHandler.time}" required="true" requiredMessage="Pflicht Feld">
+								<f:converter converterId="TimeConverter"/>
+								<f:validator validatorId="TimeValidator"/>
+							</h:inputText>
+							<h:message for="time" styleClass="message"/>
+							
+							<h:commandButton id="action" action="#{searchHandler.search()}" update="searchResult" value="Suchen" class="btn"/>
+							<h:outputText value="" />
+							<h:outputText value="" />
+							
+							<h:message for="action" styleClass="message"/>
+							
+						</h:panelGrid>
+						<h:dataTable id="searchResult" var="line" value="#{searchHandler.searchResult}" class="table">
 						
 							<h:column>
 								<f:facet name="header">Abfahrt</f:facet>
