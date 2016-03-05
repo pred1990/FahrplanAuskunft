@@ -24,6 +24,10 @@ public class Station implements Serializable {
 	
 	public Station(){}
 	
+	public Station(String name){
+		this.name = name;
+	}
+	
 	public String getName() {
 		return name;
 	}
