@@ -13,7 +13,7 @@ public class TimeConverter implements Converter{
 
 	@Override
 	public Object getAsObject(FacesContext context, UIComponent component, String value) {
-		//17:00
+		
 		String[] values = value.split(":");
 		if(values.length == 2){
 			try{

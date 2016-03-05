@@ -15,7 +15,6 @@ public class TimeValidator implements Validator {
 	@Override
 	public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
 		ClockTime time = (ClockTime)value;
-		System.out.println(new ClockTime(24, 0).getMinutes());
 
 		// 1440 = 24 * 60 (Tag * Minuten) 
 		if(time.getMinutes() >= 1440){
