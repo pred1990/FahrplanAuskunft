@@ -14,10 +14,10 @@ public class TimeValidator implements Validator {
 
 	@Override
 	public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
-		ClockTime time = (ClockTime)value;
 
+		ClockTime time = (ClockTime) value;
 		// 1440 = 24 * 60 (Tag * Minuten) 
-		if(time.getMinutes() >= 1440){
+		if(time.getMinutes() >= ClockTime.MAX_VALUE){
 			throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Error"));
 		}
 	}

@@ -9,7 +9,7 @@
 	<h:head>
 		<link rel="stylesheet" href="resources/DesignLogin.css" type="text/css" />
 		<title>
-			<ui:insert name="FahrplanAuskunft"> Registrierung</ui:insert>
+			<ui:insert name="FahrplanAuskunft">Registrierung</ui:insert>
 		</title>
 	</h:head>
 	<h:body>
@@ -18,25 +18,25 @@
 		</div>
 		<div id="content">
 			<ui:insert name="content"> </ui:insert>
-			<h:form id = "register">
+			<h:form id="register">
 				<h1 class="header">Registrierung</h1>
 				<h:panelGrid columns="2">
 					<h:outputText value="User:" />
 					<h:panelGroup>
-						<h:inputText id="user" value="#{loginHandler.name}" required="true" requiredMessage="Pflicht Feld" />
+						<h:inputText id="user" value="#{loginHandler.name}" required="true" requiredMessage="Pflichtfeld" />
 						<h:message for="user" styleClass="message" />
 					</h:panelGroup>
 
 
 					<h:outputText value="Password:" />
 					<h:panelGroup>
-						<h:inputSecret id="password" value="#{loginHandler.password}" required="true" requiredMessage="Pflicht Feld"/>
+						<h:inputSecret id="password" value="#{loginHandler.password}" required="true" requiredMessage="Pflichtfeld"/>
 						<h:message for="password" styleClass="message" />
 					</h:panelGroup>
 					
-					<h:outputText value="Passwort Wiederholen" />
+					<h:outputText value="Passwort wiederholen" />
 					<h:panelGroup>
-						<h:inputSecret id="repeat" value="#{loginHandler.passwordRepeat}" required="true" requiredMessage="Pflicht Feld"/>
+						<h:inputSecret id="repeat" value="#{loginHandler.passwordRepeat}" required="true" requiredMessage="Pflichtfeld"/>
 						<h:message for="repeat" styleClass="message" />
 					</h:panelGroup>
 

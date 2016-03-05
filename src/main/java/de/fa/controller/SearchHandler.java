@@ -6,14 +6,15 @@ import javax.faces.bean.SessionScoped;
 
 import de.fa.model.ClockTime;
 import de.fa.model.SearchResult;
+import de.fa.model.Station;
 
 @ManagedBean
 @SessionScoped
 public class SearchHandler {
 	
 	
-	private String start;
-	private String target;
+	private Station start;
+	private Station target;
 	private ClockTime time;
 	
 	private ArrayList<SearchResult> searchResult;
@@ -33,20 +34,20 @@ public class SearchHandler {
 	public void setSearchResult(ArrayList<SearchResult> searchResult) {
 		this.searchResult = searchResult;
 	}
-
-	public String getStart() {
+	
+	public Station getStart() {
 		return start;
 	}
 
-	public void setStart(String start) {
+	public void setStart(Station start) {
 		this.start = start;
 	}
 
-	public String getTarget() {
+	public Station getTarget() {
 		return target;
 	}
 
-	public void setTarget(String target) {
+	public void setTarget(Station target) {
 		this.target = target;
 	}
 

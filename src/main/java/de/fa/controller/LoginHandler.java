@@ -66,13 +66,13 @@ public class LoginHandler {
 		statement.setParameter("password", password);
 
 		List<?> userList = statement.getResultList();
-		if(userList.size() == 1) {
-			user = (User) userList.get(0);
-			return "/search.xhtml";
-		} else {
-			FacesContext.getCurrentInstance().addMessage("login:action", new FacesMessage("Eingaben Fehlerhaft"));
+		if(userList.size() != 1){
+			FacesContext.getCurrentInstance().addMessage("login:action", new FacesMessage("Benutzer oder Passwort sind ungültig"));
 			return null;
 		}
+		
+		user = (User) userList.get(0);
+		return "/search.xhtml";
 		
 	}
 	
@@ -91,39 +91,34 @@ public class LoginHandler {
 	}
 	
 	public String register(){
-		if(password.equals(passwordRepeat)){
-			
-			try {
-				transaction.begin();
-
-				Query query = entityManager.createQuery("select k from User k where name = :name");
-				
-				query.setParameter("name", name);
-
-				List<User> entrys = query.getResultList();
-				
-				if(entrys.size() > 0){
-					return null;
-				}
-					
-
-				User newUser = new User(name, password);
-				entityManager.persist(newUser);
-
-				transaction.commit();
-				System.out.println("Done");
-				return "/index.xhtml";
-			}  catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			return null;
-		} else {
-			FacesContext.getCurrentInstance().addMessage("register:action", new FacesMessage("Passwort stimmt nicht überein"));
-			
+		if(!password.equals(passwordRepeat)){
+			FacesContext.getCurrentInstance().addMessage("register:action", new FacesMessage("Die Passwörter stimmen nicht überein"));
 			return null;
 		}
 		
+		try {
+			transaction.begin();
+
+			Query query = entityManager.createQuery("select k from User k where name = :name");
+			query.setParameter("name", name);
+			List<?> entrys = query.getResultList();
+			
+			if(entrys.size() > 0){
+				return null;
+			}
+			
+			User newUser = new User(name, password);
+			entityManager.persist(newUser);
+
+			transaction.commit();
+//			System.out.println("Done");
+			return "/index.xhtml";
+			
+		}  catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 	public DataModel<User> getUsers() {
@@ -165,8 +160,5 @@ public class LoginHandler {
 	public void setPasswordRepeat(String passwordRepeat) {
 		this.passwordRepeat = passwordRepeat;
 	}
-	
-	
-	
 
 }

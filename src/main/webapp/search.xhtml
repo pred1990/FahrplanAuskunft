@@ -9,7 +9,7 @@
 	<h:head>
 		<link rel="stylesheet" href="resources/DesignSearch.css" type="text/css" />
 		<title>
-			<ui:insert name="FahrplanAuskunft"> Login </ui:insert>
+			<ui:insert name="FahrplanAuskunft">Suche</ui:insert>
 		</title>
 	</h:head>
 	<h:body>
@@ -25,17 +25,19 @@
 						<h:panelGrid columns="3" columnClasses="thirty-percent, fourty-percent, thirty-percent">
 							
 							<h:outputText value="Start" />
-							<h:inputText id="start" value="#{searchHandler.start}" required="true"  requiredMessage="Pflicht Feld">
+							<h:inputText id="start" value="#{searchHandler.start}" required="true"  requiredMessage="Pflichtfeld">
+								<f:converter converterId="StationConverter"/>
 							</h:inputText>
 							<h:message for="start" styleClass="message"/>
 							
 							<h:outputText value="Ziel" />
-							<h:inputText id="target" value="#{searchHandler.target}" required="true" requiredMessage="Pflicht Feld">
+							<h:inputText id="target" value="#{searchHandler.target}" required="true" requiredMessage="Pflichtfeld">
+								<f:converter converterId="StationConverter"/>
 							</h:inputText>
 							<h:message for="target" styleClass="message"/>
 							
-							<h:outputText value="Abfahrts Zeit" />
-							<h:inputText id="time" value="#{searchHandler.time}" required="true" requiredMessage="Pflicht Feld">
+							<h:outputText value="Abfahrtszeit" />
+							<h:inputText id="time" value="#{searchHandler.time}" required="true" requiredMessage="Pflichtfeld">
 								<f:converter converterId="TimeConverter"/>
 								<f:validator validatorId="TimeValidator"/>
 							</h:inputText>
