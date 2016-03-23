@@ -65,8 +65,6 @@ public class LoginHandler {
 		statement.setParameter("name", name);
 		statement.setParameter("password", password);
 		
-		System.out.println("test");
-
 		List<?> userList = statement.getResultList();
 		if(userList.size() != 1){
 			FacesContext.getCurrentInstance().addMessage("login:action", new FacesMessage("Benutzer oder Passwort sind ungültig"));
