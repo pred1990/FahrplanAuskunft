@@ -64,6 +64,8 @@ public class LoginHandler {
 		Query statement = entityManager.createQuery("SELECT k FROM User k WHERE k.name = :name AND k.password = :password");
 		statement.setParameter("name", name);
 		statement.setParameter("password", password);
+		
+		System.out.println("test");
 
 		List<?> userList = statement.getResultList();
 		if(userList.size() != 1){

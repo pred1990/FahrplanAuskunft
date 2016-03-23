@@ -194,13 +194,18 @@
             <artifactId>arquillian-protocol-servlet</artifactId>
             <scope>test</scope>
         </dependency>
-        
+        <!--  User defined Insert here -->
            <dependency>
 			<groupId>javax.transaction</groupId>
 			<artifactId>jta</artifactId>
 			<version>1.1</version>
 		</dependency>
 
+           <dependency>
+           	<groupId>org.primefaces</groupId>
+           	<artifactId>primefaces</artifactId>
+           	<version>5.3</version>
+           </dependency>
     </dependencies>
 
     <build>

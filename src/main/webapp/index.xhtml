@@ -5,7 +5,8 @@
 		xmlns:h="http://java.sun.com/jsf/html"
 		xmlns:f="http://java.sun.com/jsf/core"
 		xmlns:c="http://java.sun.com/jsp/jstl/core"
-		xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+		xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+		xmlns:p="http://primefaces.org/ui">
 	<h:head>
 		<link rel="stylesheet" href="resources/DesignLogin.css" type="text/css" />
 		<title>
@@ -19,25 +20,27 @@
 		<div id="content">
 			<ui:insert name="content"> </ui:insert>
 			<h:form id="login">
-				<h1 class="header">Login</h1>
-				<h:panelGrid columns="2">
-					<h:outputText value="User:" />
-					<h:panelGroup>
-						<h:inputText id="user" value="#{loginHandler.name}" required="true" requiredMessage="Pflichtfeld"/>
-						<h:message for="user" styleClass="message" />
-					</h:panelGroup>
+				<p:panel id="log">
+					<h1 class="header">Login</h1>
+					<h:panelGrid columns="3">
+						<p:outputLabel value="User:" />
+						<h:panelGroup>
+							<p:inputText id="user" value="#{loginHandler.name}" required="true" requiredMessage="Pflichtfeld"/>
+						</h:panelGroup>
+							<p:message for="user" styleClass="message" />
 
 
-					<h:outputText value="Password:" />
-					<h:panelGroup>
-						<h:inputSecret id="password" value="#{loginHandler.password}" required="true" requiredMessage="Pflichtfeld"/>
-						<h:message for="password" styleClass="message"/>
-					</h:panelGroup>
+						<p:outputLabel value="Password:" />
+						<h:panelGroup>
+							<p:password id="password" value="#{loginHandler.password}" required="true" requiredMessage="Pflichtfeld"/>
+						</h:panelGroup>
+							<p:message for="password" styleClass="message"/>
 
-					<h:commandButton id="action" action="#{loginHandler.login()}" value="Login" class="btn"/>
-					<div align="right"> <a href="register.xhtml">register</a> </div>
-					<h:message for="action" styleClass="message" />
-				</h:panelGrid>
+						<p:commandButton id="action" action="#{loginHandler.login()}" update="log" value="Login" class="btn"/>
+						<div align="right"> <a href="register.xhtml">register</a> </div>
+						<p:message for="action" styleClass="message" />
+					</h:panelGrid>
+				</p:panel>
 			
 			</h:form>
 
