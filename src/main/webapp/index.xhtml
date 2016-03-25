@@ -23,21 +23,21 @@
 				<p:panel id="log">
 					<h1 class="header">Login</h1>
 					<h:panelGrid columns="3">
-						<p:outputLabel value="User:" />
+						<p:outputLabel value="#{msg.user}:" /> 
 						<h:panelGroup>
 							<p:inputText id="user" value="#{loginHandler.name}" required="true" requiredMessage="Pflichtfeld"/>
 						</h:panelGroup>
 							<p:message for="user" styleClass="message" />
 
 
-						<p:outputLabel value="Password:" />
+						<p:outputLabel value="#{msg.password}:" />
 						<h:panelGroup>
 							<p:password id="password" value="#{loginHandler.password}" required="true" requiredMessage="Pflichtfeld"/>
 						</h:panelGroup>
 							<p:message for="password" styleClass="message"/>
 
-						<p:commandButton id="action" action="#{loginHandler.login()}" update="log" value="Login" class="btn"/>
-						<div align="right"> <a href="register.xhtml">register</a> </div>
+						<p:commandButton id="action" action="#{loginHandler.login()}" update="log" value="#{msg.login}" class="btn"/>
+						<div align="right"> <a href="register.xhtml">#{msg.register}</a> </div>
 						<p:message for="action" styleClass="message" />
 					</h:panelGrid>
 				</p:panel>

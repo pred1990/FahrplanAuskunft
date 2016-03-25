@@ -19,28 +19,28 @@
 		<div id="content">
 			<ui:insert name="content"> </ui:insert>
 			<h:form id="register">
-				<h1 class="header">Registrierung</h1>
+				<h1 class="header">#{msg.registration}</h1>
 				<h:panelGrid columns="2">
-					<h:outputText value="User:" />
+					<h:outputText value="#{msg.user}:" />
 					<h:panelGroup>
 						<h:inputText id="user" value="#{loginHandler.name}" required="true" requiredMessage="Pflichtfeld" />
 						<h:message for="user" styleClass="message" />
 					</h:panelGroup>
 
 
-					<h:outputText value="Password:" />
+					<h:outputText value="#{msg.password}:" />
 					<h:panelGroup>
 						<h:inputSecret id="password" value="#{loginHandler.password}" required="true" requiredMessage="Pflichtfeld"/>
 						<h:message for="password" styleClass="message" />
 					</h:panelGroup>
 					
-					<h:outputText value="Passwort wiederholen" />
+					<h:outputText value="#{msg.passwordReapeat}:" />
 					<h:panelGroup>
 						<h:inputSecret id="repeat" value="#{loginHandler.passwordRepeat}" required="true" requiredMessage="Pflichtfeld"/>
 						<h:message for="repeat" styleClass="message" />
 					</h:panelGroup>
 
-					<h:commandButton id="action" action="#{loginHandler.register()}" value="Registrieren" class="btn"/>
+					<h:commandButton id="action" action="#{loginHandler.register()}" value="#{msg.register}" class="btn"/>
 					<h:message for="action" styleClass="message"/>
 				</h:panelGrid>
 			
