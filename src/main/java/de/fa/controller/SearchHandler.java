@@ -57,6 +57,10 @@ public class SearchHandler {
 	public void search(){
 		searchResult.add(new SearchResult("a", "b", "c", "d"));
 	}
+	
+	public void doIt(){
+		System.out.println("---------------test-------------");
+	}
 
 	public List<Station> searchStation(String name){
 		

@@ -34,10 +34,18 @@
 						<h:message for="password" styleClass="message" />
 					</h:panelGroup>
 					
-					<h:outputText value="#{msg.passwordReapeat}:" />
+					<h:outputText value="#{msg.passwordRepeat}:" />
 					<h:panelGroup>
 						<h:inputSecret id="repeat" value="#{loginHandler.passwordRepeat}" required="true" requiredMessage="Pflichtfeld"/>
 						<h:message for="repeat" styleClass="message" />
+					</h:panelGroup>
+
+					<h:outputText value="#{msg.birthday}:" />
+					<h:panelGroup>
+						<h:inputText id="birthday" value="#{loginHandler.birthdate}" required="true" requiredMessage="Pflichtfeld">
+							<f:convertDateTime pattern="dd.MM.yyyy" />
+						</h:inputText>
+						<h:message for="birthday" styleClass="message" />
 					</h:panelGroup>
 
 					<h:commandButton id="action" action="#{loginHandler.register()}" value="#{msg.register}" class="btn"/>

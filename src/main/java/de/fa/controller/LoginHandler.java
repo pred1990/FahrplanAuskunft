@@ -1,5 +1,7 @@
 package de.fa.controller;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -32,6 +34,7 @@ public class LoginHandler {
 	private String name;
 	private String password;
 	private String passwordRepeat;
+	private Date birthdate;
 	private User user;
 	
 	@PostConstruct
@@ -40,12 +43,12 @@ public class LoginHandler {
 			transaction.begin();
 			List<?> result = entityManager.createQuery("select k from User k where k.name = 'msk'").getResultList();
 			if(result.size() <= 0){
-				entityManager.persist(new User("msk", "msk"));
+				entityManager.persist(new User("msk", "msk", Calendar.getInstance().getTime()));
 				System.out.println("Info: creating user: msk");
 			}
 			result = entityManager.createQuery("select k from User k where k.name = 'daniel'").getResultList();
 			if(result.size() <= 0){
-				entityManager.persist(new User("Daniel", "daniel"));
+				entityManager.persist(new User("Daniel", "daniel", Calendar.getInstance().getTime()));
 				System.out.println("Info: creating user daniel");
 			}
 			
@@ -60,7 +63,6 @@ public class LoginHandler {
 	}
 	
 	public String login(){
-		
 		Query statement = entityManager.createQuery("SELECT k FROM User k WHERE k.name = :name AND k.password = :password");
 		statement.setParameter("name", name);
 		statement.setParameter("password", password);
@@ -72,12 +74,11 @@ public class LoginHandler {
 		}
 		
 		user = (User) userList.get(0);
-		return "/search.xhtml";
+		return "/search.xhtml?faces-redirect=true";
 		
 	}
 	
 	public void isLoggedIn(){
-		
 		FacesContext context = FacesContext.getCurrentInstance();
 		if (user == null) {
 			context.getApplication().getNavigationHandler().handleNavigation(context, null, "/index.xhtml?faces-redirect=true");
@@ -85,9 +86,10 @@ public class LoginHandler {
 		
 	}
 	
-	public void logout(){
+	public String logout(){
+		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
 		user = null;
-		
+		return "/index.xhtml?faces-redirect=true";
 	}
 	
 	public String register(){
@@ -107,7 +109,7 @@ public class LoginHandler {
 				return null;
 			}
 			
-			User newUser = new User(name, password);
+			User newUser = new User(name, password, birthdate);
 			entityManager.persist(newUser);
 
 			transaction.commit();
@@ -161,4 +163,11 @@ public class LoginHandler {
 		this.passwordRepeat = passwordRepeat;
 	}
 
+	public Date getBirthdate() {
+		return birthdate;
+	}
+
+	public void setBirthdate(Date birthdate) {
+		this.birthdate = birthdate;
+	}
 }

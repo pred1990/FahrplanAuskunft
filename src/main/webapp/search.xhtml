@@ -77,6 +77,10 @@
 				</h:panelGrid>
 				
 				<a href="/linienplan.xhtm">Linienplan</a>
+				<br/>
+				<br/>
+				<h:commandButton id="logout" action="#{loginHandler.logout()}" process="@form" update="search" value="Logout" immediate="true" class="btn"/>
+				
 			</h:form>
 
 		</div>

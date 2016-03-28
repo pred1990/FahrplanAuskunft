@@ -1,6 +1,7 @@
 package de.fa.model;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,13 +18,15 @@ public class User implements Serializable{
 	private Integer id;
 	private String name;
 	private String password;
+	private Date birthday;
 	
 	public User(){
 	}
 	
-	public User(String name, String password){
+	public User(String name, String password, Date birthday){
 		this.name = name;
 		this.password = password;
+		this.birthday = birthday;
 	}
 
 	public String getName() {
@@ -40,6 +43,14 @@ public class User implements Serializable{
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public Date getBirthday() {
+		return birthday;
+	}
+
+	public void setBirthday(Date birthday) {
+		this.birthday = birthday;
 	}
 	
 }
