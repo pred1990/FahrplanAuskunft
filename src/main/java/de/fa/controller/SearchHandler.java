@@ -14,6 +14,7 @@ import javax.persistence.Query;
 import javax.transaction.UserTransaction;
 
 import de.fa.model.ClockTime;
+import de.fa.model.Route;
 import de.fa.model.SearchResult;
 import de.fa.model.Station;
 
@@ -40,11 +41,56 @@ public class SearchHandler {
 		try{
 			transaction.begin();
 			
-			List<?> station = entityManager.createQuery("select k from Station k where k.name = 'Station'").getResultList();
+			List<?> station = entityManager.createQuery("select k from Station k ").getResultList();
 				if(station.size() == 0){
-					entityManager.persist(new Station("Station"));
+					//Linie 10
+					
+					List<Station> stations10 = new ArrayList<Station>();
+					
+					stations10.add(new Station("Gröpelingen"));
+					stations10.add(new Station("Lindenhofstraße"));
+					stations10.add(new Station("Moorstraße"));
+					stations10.add(new Station("Altenescher Straße"));
+					stations10.add(new Station("Waller Fiedhof"));
+					stations10.add(new Station("Waller Straße"));
+					stations10.add(new Station("Waldau-Theater"));
+					stations10.add(new Station("Gustavstraße"));
+					stations10.add(new Station("Utbremer Straße"));
+					stations10.add(new Station("Wartburgerstraße"));
+					stations10.add(new Station("Hansestraße"));
+					stations10.add(new Station("Haferkamp"));
+					
+					List<Station> stations2 = new ArrayList<>(stations10);
+					
+					stations10.add(new Station("Doventorsteinweg"));
+					stations10.add(new Station("Daniel-von-Büren-Straße"));
+					stations10.add(new Station("Falkenstraße"));
+					stations10.add(new Station("Hauptbahnhof"));
+					
+					for (Station s: stations10) {
+						entityManager.persist(s);
+					}
+					
+					//Line 2 extension
+					stations2.add(new Station("Lloydstraße"));
+					stations2.add(new Station("Doventor"));
+					stations2.add(new Station("Radio Bremen/VHS"));
+					stations2.add(new Station("Am Brill"));
+					
+					for(int i = 12; i < stations2.size(); ++i){
+						entityManager.persist(stations2.get(i));
+					}
+					
+					Route S2 = new Route("2", "Sebaldsbrück", stations2);
+					Route G2 = new Route("2", "Gröpelingen", stations2);
+					Route S10 = new Route("10", "Sebaldsbrück", stations10);
+					Route G10 = new Route("10", "Gröpelingen", stations10);
+					
+					entityManager.persist(S2);
+					entityManager.persist(G2);
+					entityManager.persist(S10);
+					entityManager.persist(G10);
 				}
-			transaction.commit();
 		}catch(Exception e){
 			e.printStackTrace();
 		}

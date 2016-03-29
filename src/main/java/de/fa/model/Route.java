@@ -31,6 +31,12 @@ public class Route implements Serializable {
 	private List<Station> stations;
 	
 	public Route(){}
+	
+	public Route(String name, String direction, List<Station> stations){
+		this.name = name;
+		this.direction = direction;
+		this.stations = stations;
+	}
 
 	public String getName() {
 		return name;
