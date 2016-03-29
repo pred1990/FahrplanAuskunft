@@ -60,18 +60,17 @@ public class SearchHandler {
 					stations10.add(new Station("Hansestraße"));
 					stations10.add(new Station("Haferkamp"));
 					
-					List<Station> stations2 = new ArrayList<>(stations10);
+					List<Station> stations2 = new ArrayList<>();
+					for (Station s: stations10) {
+						entityManager.persist(s);
+						stations2.add(s);
+					}
 					
 					stations10.add(new Station("Doventorsteinweg"));
 					stations10.add(new Station("Daniel-von-Büren-Straße"));
 					stations10.add(new Station("Falkenstraße"));
 					stations10.add(new Station("Hauptbahnhof"));
 					
-					for (Station s: stations10) {
-						entityManager.persist(s);
-					}
-					
-					//Line 2 extension
 					stations2.add(new Station("Lloydstraße"));
 					stations2.add(new Station("Doventor"));
 					stations2.add(new Station("Radio Bremen/VHS"));
@@ -85,14 +84,18 @@ public class SearchHandler {
 					Route G2 = new Route("2", "Gröpelingen", stations2);
 					Route S10 = new Route("10", "Sebaldsbrück", stations10);
 					Route G10 = new Route("10", "Gröpelingen", stations10);
-					
-					entityManager.persist(S2);
-					entityManager.persist(G2);
-					entityManager.persist(S10);
-					entityManager.persist(G10);
+
+					//entityManager.persist(S2);
+					//entityManager.persist(G2);
+					//entityManager.persist(S10);
+					//entityManager.persist(G10);
 				}
+				
+				transaction.commit();
+				
 		}catch(Exception e){
 			e.printStackTrace();
+			System.out.println(e.getMessage());
 		}
 	}
 
