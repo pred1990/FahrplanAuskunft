@@ -5,7 +5,7 @@ import java.io.Serializable;
 public class SearchResult implements Serializable{
 	
 	private static final long serialVersionUID = 762560152864528174L;
-	private String depature;
+	private String departure;
 	private String arrival;
 	private String station;
 	private String line;
@@ -15,15 +15,15 @@ public class SearchResult implements Serializable{
 		
 	}
 	/*
-	public SearchResult(ClockTime depature, ClockTime arrival, String station, String line){
-		this.depature = depature;
+	public SearchResult(ClockTime departure, ClockTime arrival, String station, String line){
+		this.departure = departure;
 		this.arrival = arrival;
 		this.station = station;
 		this.line = line;
 	}
 	*/
-	public SearchResult(String depature, String arrival, String station, String line){
-		this.depature = depature;
+	public SearchResult(String departure, String arrival, String station, String line){
+		this.departure = departure;
 		this.arrival = arrival;
 		this.station = station;
 		this.line = line;
@@ -31,11 +31,11 @@ public class SearchResult implements Serializable{
 
 	
 	
-	public String getDepature() {
-		return depature;
+	public String getDeparture() {
+		return departure;
 	}
-	public void setDepature(String depature) {
-		this.depature = depature;
+	public void setDepature(String departure) {
+		this.departure = departure;
 	}
 	public String getArrival() {
 		return arrival;

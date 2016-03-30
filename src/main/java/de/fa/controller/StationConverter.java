@@ -18,7 +18,7 @@ public class StationConverter implements Converter {
 		if(value.length() != 0){
 			
 			//check for alphaNumeric ?
-			SearchHandler search = context.getCurrentInstance().getApplication().evaluateExpressionGet(context, "#{SearchHandler}", SearchHandler.class);
+			SearchHandler search = FacesContext.getCurrentInstance().getApplication().evaluateExpressionGet(context, "#{SearchHandler}", SearchHandler.class);
 			
 			List<Station> stations = search.searchStation(value);
 			System.out.println("result = " + stations.size());
