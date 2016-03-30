@@ -3,11 +3,12 @@ package de.fa.model;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.OrderColumn;
 
 /**
  * The Route class represents a sequence of Stations which are visited by vehicles in that order.
@@ -27,7 +28,8 @@ public class Route implements Serializable {
 	private Integer id;
 	private String name;
 	private String direction;
-	@ElementCollection(targetClass=Station.class)
+	@OrderColumn
+	@ManyToMany
 	private List<Station> stations;
 	
 	public Route(){}
