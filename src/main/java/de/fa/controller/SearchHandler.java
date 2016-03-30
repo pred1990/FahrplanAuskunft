@@ -100,6 +100,7 @@ public class SearchHandler {
 			transaction.commit();
 		}catch(Exception e){
 			e.printStackTrace();
+			System.out.println(e.getMessage());
 		}
 	}
 

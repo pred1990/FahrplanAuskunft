@@ -39,7 +39,7 @@ public class Route implements Serializable {
 		this.direction = direction;
 		this.stations = stations;
 	}
-
+	
 	public String getName() {
 		return name;
 	}
