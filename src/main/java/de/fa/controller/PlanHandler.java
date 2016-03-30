@@ -47,10 +47,20 @@ public class PlanHandler {
 		q.setParameter("direction", "Sebaldsbrück");
 		route = (Route) q.getSingleResult();
 		if(route != null){
-			stations = route.getStations();			
+			List<Station> stationlist = route.getStations();
+			if(stationlist != null){
+				System.out.println("stations not null! hooray...?");
+				if(!stationlist.isEmpty()){
+					System.out.println("stations not empty!");
+				}
+	//			for(Station station : route.getStations()){
+	//				System.out.println(station.getName());
+	//			}
+			}
+//			stations = route.getStations();			
 		}else{
 			System.out.println("route nicht gefunden...");
-		}		
+		}
 	}
 	
 	public PlanHandler(){

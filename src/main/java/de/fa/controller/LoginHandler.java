@@ -48,7 +48,7 @@ public class LoginHandler {
 			}
 			result = entityManager.createQuery("select k from User k where k.name = 'daniel'").getResultList();
 			if(result.size() <= 0){
-				entityManager.persist(new User("Daniel", "daniel", Calendar.getInstance().getTime()));
+				entityManager.persist(new User("daniel", "daniel", Calendar.getInstance().getTime()));
 				System.out.println("Info: creating user daniel");
 			}
 			
