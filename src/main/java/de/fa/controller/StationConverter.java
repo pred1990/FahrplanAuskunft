@@ -2,13 +2,14 @@ package de.fa.controller;
 
 import java.util.List;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
+import javax.faces.convert.ConverterException;
 import javax.faces.convert.FacesConverter;
 
 import de.fa.model.Station;
-
 
 @FacesConverter(value="StationConverter")
 public class StationConverter implements Converter {
@@ -26,7 +27,7 @@ public class StationConverter implements Converter {
 			if(stations.size() > 0){
 				return (Station) stations.get(0);
 			}
-			return null;
+			throw new ConverterException(new FacesMessage("Unbekannte Station"));
 		} 
 		
 		return null;
