@@ -2,6 +2,8 @@ package de.fa.controller;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
@@ -19,9 +21,9 @@ import de.fa.model.Station;
 @SessionScoped
 public class PlanHandler {
 
-	private List<Route> routeList;
+	private Map<String, Route> routeList;
 	
-	private Route routeSelected;
+	private String routeSelected;
 	
 	private List<Station> stations;
 
@@ -47,9 +49,10 @@ public class PlanHandler {
 		Query q = entityManager.createQuery("select k from Route k");
 		List<Route> results = q.getResultList();
 		if(results != null && !results.isEmpty()){
-			routeList = results;
-			for(Route r : routeList){
+			routeList = new TreeMap<String, Route>();
+			for(Route r : results){
 				r.getStations().size();		//call size to make JPA actually load the content of the list
+				routeList.put(r.toString(), r);
 			}
 		}
 		transaction.commit();
@@ -75,29 +78,33 @@ public class PlanHandler {
 	
 	public PlanHandler(){
 		stations = Collections.emptyList();
-		routeList = Collections.emptyList();
+		routeList = Collections.emptyMap();
 	}
 	
 	public void beep(){
 		System.out.println("boop");
-		System.out.println("selected route: " + routeSelected == null ? "null" : routeSelected.toString());
+		System.out.println("selected route: " + (routeSelected == null ? "null" : routeSelected.toString()));
+		if(routeSelected != null){
+			stations = routeList.get(routeSelected).getStations();
+		}else{
+			stations = Collections.emptyList();			
+		}
 	}
 	
-	public List<Route> getRouteList() {
+	public Map<String, Route> getRouteList() {
 		return routeList;
 	}
 	
-	public void setRouteList(List<Route> routes) {
+	public void setRouteList(Map<String, Route> routes) {
 		this.routeList = routes;
 	}
 	
-	public Route getRouteSelected() {
+	public String getRouteSelected() {
 		return routeSelected;
 	}
 	
-	public void setRouteSelected(Route route) {
+	public void setRouteSelected(String route) {
 		this.routeSelected = route;
-		System.out.println("set route selected...");
 	}
 	
 	public List<Station> getStations() {
@@ -106,6 +113,5 @@ public class PlanHandler {
 	
 	public void setStations(List<Station> stations) {
 		this.stations = stations;
-		System.out.println("set stations...");
 	}
 }

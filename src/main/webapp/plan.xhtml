@@ -24,30 +24,19 @@
 				
 			<h:form id="form-select-route">
 				<h:selectOneMenu value="#{planHandler.routeSelected}">
-					<f:selectItems value="#{planHandler.routeList}" var="route" 
-					itemLabel="#{route.toString()}" itemValue="#{route}"/>
+					<f:selectItems value="#{planHandler.routeList.keySet()}" var="route"/>
+					<f:ajax listener="#{planHandler.beep()}" render="plan-display"/>
 				</h:selectOneMenu>
-				<h:commandButton action="#{planHandler.beep()}" value="Submit" />
+			
+				<h:dataTable id="plan-display" var="station" value="#{planHandler.stations}" class="table">
+			
+					<h:column>
+						<f:facet name="header">Station</f:facet>
+						#{station.name}
+					</h:column>
+				
+				</h:dataTable>
 			</h:form>
-			
-			<h:dataTable id="planDisplay" var="station" value="#{planHandler.stations}" class="table">
-			
-				<h:column>
-					<f:facet name="header">Position</f:facet>
-					#{station.name}
-				</h:column>
-		
-				<h:column>
-					<f:facet name="header">Station</f:facet>
-					#{station.name}
-				</h:column>
-		
-				<h:column>
-					<f:facet name="header">Anschlusslinien</f:facet>
-					#{station.name}
-				</h:column>
-			
-			</h:dataTable>
 				
 			<h:form id="form-logout">
 				<a href="/FahrplanAuskunft/search.jsf">Suche</a>
@@ -55,7 +44,6 @@
 				<br/>
 				<h:commandButton id="logout" action="#{loginHandler.logout()}" process="@form" update="search" value="Logout" immediate="true" class="btn"/>
 			</h:form>
-
 		</div>
 		<div id="footer">
 			<ui:insert name="footer"> </ui:insert>
