@@ -19,32 +19,41 @@
 		</div>
 		<div id="content">
 			<ui:insert name="content"> </ui:insert>
-			<h:form id="search">
-				<h1 class="header">Linienplan</h1>
-				<h:dataTable id="searchResult" var="station" value="#{planHandler.stations}" class="table">
-				
-					<h:column>
-						<f:facet name="header">Position</f:facet>
-						#{station.name}
-					</h:column>
 			
-					<h:column>
-						<f:facet name="header">Station</f:facet>
-						#{station.name}
-					</h:column>
+			<h1 class="header">Linienplan</h1>
+				
+			<h:form id="form-select-route">
+				<h:selectOneMenu value="#{planHandler.routeSelected}">
+					<f:selectItems value="#{planHandler.routeList}" var="route" 
+					itemLabel="#{route.toString()}" itemValue="#{route}"/>
+				</h:selectOneMenu>
+				<h:commandButton action="#{planHandler.beep()}" value="Submit" />
+			</h:form>
 			
-					<h:column>
-						<f:facet name="header">Anschlusslinien</f:facet>
-						#{station.name}
-					</h:column>
+			<h:dataTable id="planDisplay" var="station" value="#{planHandler.stations}" class="table">
+			
+				<h:column>
+					<f:facet name="header">Position</f:facet>
+					#{station.name}
+				</h:column>
+		
+				<h:column>
+					<f:facet name="header">Station</f:facet>
+					#{station.name}
+				</h:column>
+		
+				<h:column>
+					<f:facet name="header">Anschlusslinien</f:facet>
+					#{station.name}
+				</h:column>
+			
+			</h:dataTable>
 				
-				</h:dataTable>
-				
+			<h:form id="form-logout">
 				<a href="/FahrplanAuskunft/search.jsf">Suche</a>
 				<br/>
 				<br/>
 				<h:commandButton id="logout" action="#{loginHandler.logout()}" process="@form" update="search" value="Logout" immediate="true" class="btn"/>
-				
 			</h:form>
 
 		</div>

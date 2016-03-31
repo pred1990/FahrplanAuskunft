@@ -87,15 +87,10 @@ public class SearchHandler {
 				Collections.reverse(stations2inv);
 				Collections.reverse(stations10inv);
 				
-				Route S2 = new Route("2", "Sebaldsbrück", stations2);
-				Route G2 = new Route("2", "Gröpelingen", stations2inv);
-				Route S10 = new Route("10", "Sebaldsbrück", stations10);
-				Route G10 = new Route("10", "Gröpelingen", stations10inv);
-				
-				entityManager.persist(S2);
-				entityManager.persist(G2);
-				entityManager.persist(S10);
-				entityManager.persist(G10);
+				entityManager.persist(new Route("2", "Sebaldsbrück", stations2));
+				entityManager.persist(new Route("2", "Gröpelingen", stations2inv));
+				entityManager.persist(new Route("10", "Sebaldsbrück", stations10));
+				entityManager.persist(new Route("10", "Gröpelingen", stations10inv));
 			}
 			transaction.commit();
 		}catch(Exception e){

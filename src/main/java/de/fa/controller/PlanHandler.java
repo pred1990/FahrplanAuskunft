@@ -4,11 +4,13 @@ import java.util.Collections;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.Resource;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.transaction.UserTransaction;
 
 import de.fa.model.Route;
 import de.fa.model.Station;
@@ -17,19 +19,85 @@ import de.fa.model.Station;
 @SessionScoped
 public class PlanHandler {
 
-	private Route route;
+	private List<Route> routeList;
+	
+	private Route routeSelected;
 	
 	private List<Station> stations;
 
 	@PersistenceContext
 	private EntityManager entityManager;
 	
-	public Route getRoute() {
-		return route;
+	@Resource
+	private UserTransaction transaction;
+	
+	
+	@PostConstruct
+	public void init(){
+		try{
+			loadRoutesList();
+//			showRoute();
+		}catch(Exception e){
+			System.out.println("Exception! - " + e.getMessage());
+		}
 	}
-
-	public void setRoute(Route route) {
-		this.route = route;
+	
+	private void loadRoutesList() throws Exception {
+		transaction.begin();
+		Query q = entityManager.createQuery("select k from Route k");
+		List<Route> results = q.getResultList();
+		if(results != null && !results.isEmpty()){
+			routeList = results;
+			for(Route r : routeList){
+				r.getStations().size();		//call size to make JPA actually load the content of the list
+			}
+		}
+		transaction.commit();
+	}
+	
+//	private void showRoute() throws Exception {
+//		transaction.begin();
+//		Query q = entityManager.createQuery("select k from Route k where k.name = :name AND k.direction = :direction");
+//		q.setParameter("name", "2");
+//		q.setParameter("direction", "Sebaldsbrück");
+//		routeSelected = (Route) q.getSingleResult();
+//		if(routeSelected != null){
+//			List<Station> stationList = routeSelected.getStations();
+//			if(stationList != null){
+//				stations.size();	//call size() to make JPA actually load the content of the list
+//				stations = stationList;
+//			}
+//		}else{
+//			System.out.println("route nicht gefunden...");
+//		}
+//		transaction.commit();
+//	}
+	
+	public PlanHandler(){
+		stations = Collections.emptyList();
+		routeList = Collections.emptyList();
+	}
+	
+	public void beep(){
+		System.out.println("boop");
+		System.out.println("selected route: " + routeSelected == null ? "null" : routeSelected.toString());
+	}
+	
+	public List<Route> getRouteList() {
+		return routeList;
+	}
+	
+	public void setRouteList(List<Route> routes) {
+		this.routeList = routes;
+	}
+	
+	public Route getRouteSelected() {
+		return routeSelected;
+	}
+	
+	public void setRouteSelected(Route route) {
+		this.routeSelected = route;
+		System.out.println("set route selected...");
 	}
 	
 	public List<Station> getStations() {
@@ -38,32 +106,6 @@ public class PlanHandler {
 	
 	public void setStations(List<Station> stations) {
 		this.stations = stations;
-	}
-	
-	@PostConstruct
-	public void init(){
-		Query q = entityManager.createQuery("select k from Route k where k.name = :name AND k.direction = :direction");
-		q.setParameter("name", "2");
-		q.setParameter("direction", "Sebaldsbrück");
-		route = (Route) q.getSingleResult();
-		if(route != null){
-			List<Station> stationlist = route.getStations();
-			if(stationlist != null){
-				System.out.println("stations not null! hooray...?");
-				if(!stationlist.isEmpty()){
-					System.out.println("stations not empty!");
-				}
-	//			for(Station station : route.getStations()){
-	//				System.out.println(station.getName());
-	//			}
-			}
-//			stations = route.getStations();			
-		}else{
-			System.out.println("route nicht gefunden...");
-		}
-	}
-	
-	public PlanHandler(){
-		stations = Collections.emptyList();
+		System.out.println("set stations...");
 	}
 }

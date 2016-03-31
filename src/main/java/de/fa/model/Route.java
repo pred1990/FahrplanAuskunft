@@ -64,4 +64,9 @@ public class Route implements Serializable {
 		this.stations = stations;
 	}
 	
+	@Override
+	public String toString(){
+		return name + "-" + direction;
+	}
+	
 }
