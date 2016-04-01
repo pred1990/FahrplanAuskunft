@@ -48,6 +48,9 @@ public class LoginHandler {
 	private Date birthdate;
 	private User user;
 	
+	/**
+	 * Generate and persist default values for the application.
+	 */
 	@PostConstruct
 	public void init(){
 		try{
@@ -115,6 +118,7 @@ public class LoginHandler {
 				route10.add(s);
 			}
 			
+			//route 2 extension
 			String[] route2Ext = {
 					"Lloydstraße", "Doventor", "Radio Bremen/VHS", "Am Brill"
 			};
