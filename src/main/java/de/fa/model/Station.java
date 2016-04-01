@@ -36,4 +36,24 @@ public class Station implements Serializable {
 		this.name = name;
 	}
 	
+	/**
+	 * Returns the name of the station.
+	 */
+	@Override
+	public String toString(){
+		return this.name;
+	}
+	
+	/**
+	 * Returns true if both the names of both stations are equal.
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if(!(obj instanceof Station)){
+			return false;
+		}
+		Station s = (Station) obj;
+		return this.getName().equals(s.getName());
+	}
+	
 }

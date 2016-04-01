@@ -34,6 +34,13 @@ public class ClockTime implements Serializable {
 		}
 		this.minutes = hours * 60 + minutes;
 	}
+	
+	public ClockTime(Integer minutes){
+		if(minutes >= MAX_VALUE){
+			throw new IllegalArgumentException();
+		}
+		this.minutes = minutes;
+	}
 
 	public Integer getMinutes() {
 		return minutes;
@@ -42,26 +49,42 @@ public class ClockTime implements Serializable {
 	public void setMinutes(Integer minutes) {
 		this.minutes = minutes;
 	}
-
-	public Integer timeUntil(ClockTime end){
-		return ClockTime.timeBetween(this, end);
-	}
 	
-	public Integer timeSince(ClockTime begin){
-		return ClockTime.timeBetween(begin, this);
-	}
-	
+	/**
+	 * Calculates the time that would pass from the first passed ClockTime 
+	 * until the second ClockTime would be reached.
+	 * @param begin
+	 * @param end
+	 * @return
+	 */
 	public static Integer timeBetween(ClockTime begin, ClockTime end){
-		int diff = end.minutes - begin.minutes;
+		return ClockTime.timeBetween(begin.getMinutes(), end.getMinutes());
+	}
+	
+	/**
+	 * Calculates the time that would pass from the first passed time 
+	 * until the second time would be reached. 
+	 * Times are passed in minutes, e.g. "03:44" would be 224.
+	 * @param begin
+	 * @param end
+	 * @return
+	 */
+	public static Integer timeBetween(Integer begin, Integer end){
+		int diff = end - begin;
 		return diff >= 0 ? diff : diff + MAX_VALUE;
 	}
 	
+	/**
+	 * Returns a string representation of this ClockTime instance 
+	 * formatted like the time on a digical clock (e.g. "23:59").
+	 */
 	@Override
 	public String toString(){
-		int hrs = minutes / 60;
-		int mins = minutes % 60;
-		return (hrs == 0 ? "00" : String.valueOf(hrs)) + ":"
-				+ (mins == 0 ? "00" : String.valueOf(mins));
+		int hrs = getMinutes() / 60;
+		int mins = getMinutes() % 60;
+		String hrsStr = (hrs < 10) ? "0" + String.valueOf(hrs) : String.valueOf(hrs);
+		String minStr = (mins < 10) ? "0" + String.valueOf(mins) : String.valueOf(mins);
+		return hrsStr + ":" + minStr;
 	}
 	
 }

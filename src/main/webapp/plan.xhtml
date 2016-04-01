@@ -24,8 +24,9 @@
 				
 			<h:form id="form-select-route">
 				<h:selectOneMenu value="#{planHandler.routeSelected}">
+				<f:selectItem itemValue="#{null}" itemLabel="Linie auswählen"/>
 					<f:selectItems value="#{planHandler.routeList.keySet()}" var="route"/>
-					<f:ajax listener="#{planHandler.beep()}" render="plan-display"/>
+					<f:ajax listener="#{planHandler.display()}" render="plan-display"/>
 				</h:selectOneMenu>
 			
 				<h:dataTable id="plan-display" var="station" value="#{planHandler.stations}" class="table">

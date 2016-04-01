@@ -36,7 +36,7 @@
 							</h:inputText>
 							<h:message for="target" styleClass="message"/>
 							
-							<h:outputText value="Abfahrtszeit" />
+							<h:outputText value="Ankunftszeit" />
 							<h:inputText id="time" value="#{searchHandler.time}" required="true" requiredMessage="Pflichtfeld">
 								<f:converter converterId="TimeConverter"/>
 								<f:validator validatorId="TimeValidator"/>
@@ -53,14 +53,9 @@
 						<h:dataTable id="searchResult" var="line" value="#{searchHandler.searchResult}" class="table">
 						
 							<h:column>
-								<f:facet name="header">Abfahrt</f:facet>
+								<f:facet name="header">Uhrzeit</f:facet>
 								<!-- row record -->
-								#{line.departure}
-							</h:column>
-					
-							<h:column>
-								<f:facet name="header">Ankunft</f:facet>
-								#{line.arrival}
+								#{line.time}
 							</h:column>
 					
 							<h:column>

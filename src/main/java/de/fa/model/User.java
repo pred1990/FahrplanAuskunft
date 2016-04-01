@@ -8,6 +8,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+/**
+ * Instances of this class represent a registered user of the application. 
+ * @author Daniel
+ *
+ */
 @Entity
 public class User implements Serializable{
 

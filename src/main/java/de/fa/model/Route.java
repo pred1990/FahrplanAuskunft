@@ -64,6 +64,10 @@ public class Route implements Serializable {
 		this.stations = stations;
 	}
 	
+	/**
+	 * Returns a string representation that contains the name and direction of a route 
+	 * (e.g. "10-Gröpelingen", where "10" is the name and "Gröpelingen" the direction).
+	 */
 	@Override
 	public String toString(){
 		return name + "-" + direction;

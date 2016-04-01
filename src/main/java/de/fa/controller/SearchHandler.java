@@ -1,7 +1,6 @@
 package de.fa.controller;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -18,7 +17,13 @@ import de.fa.model.ClockTime;
 import de.fa.model.Route;
 import de.fa.model.SearchResult;
 import de.fa.model.Station;
+import de.fa.model.Trip;
 
+/**
+ * Backing bean for the route search page.
+ * @author Daniel
+ *
+ */
 @ManagedBean
 @SessionScoped
 @Named(value="SearchHandler")
@@ -39,84 +44,87 @@ public class SearchHandler {
 
 	@PostConstruct
 	public void init(){
-		try{
-			transaction.begin();
-			
-			List<?> station = entityManager.createQuery("select k from Station k ").getResultList();
-			if(station.size() == 0){
-				//Linie 10
-				
-				List<Station> stations10 = new ArrayList<Station>();
-				
-				stations10.add(new Station("Gröpelingen"));
-				stations10.add(new Station("Lindenhofstraße"));
-				stations10.add(new Station("Moorstraße"));
-				stations10.add(new Station("Altenescher Straße"));
-				stations10.add(new Station("Waller Fiedhof"));
-				stations10.add(new Station("Waller Straße"));
-				stations10.add(new Station("Waldau-Theater"));
-				stations10.add(new Station("Gustavstraße"));
-				stations10.add(new Station("Utbremer Straße"));
-				stations10.add(new Station("Wartburgerstraße"));
-				stations10.add(new Station("Hansestraße"));
-				stations10.add(new Station("Haferkamp"));
-				
-				List<Station> stations2 = new ArrayList<>(stations10);
-				
-				stations10.add(new Station("Doventorsteinweg"));
-				stations10.add(new Station("Daniel-von-Büren-Straße"));
-				stations10.add(new Station("Falkenstraße"));
-				stations10.add(new Station("Hauptbahnhof"));
-				
-				for (Station s: stations10) {
-					entityManager.persist(s);
-				}
-				
-				//Line 2 extension
-				stations2.add(new Station("Lloydstraße"));
-				stations2.add(new Station("Doventor"));
-				stations2.add(new Station("Radio Bremen/VHS"));
-				stations2.add(new Station("Am Brill"));
-				
-				for(int i = 12; i < stations2.size(); ++i){
-					entityManager.persist(stations2.get(i));
-				}
-				
-				List<Station> stations2inv = new ArrayList<Station>(stations2);
-				List<Station> stations10inv = new ArrayList<Station>(stations10);
-				Collections.reverse(stations2inv);
-				Collections.reverse(stations10inv);
-				
-				entityManager.persist(new Route("2", "Sebaldsbrück", stations2));
-				entityManager.persist(new Route("2", "Gröpelingen", stations2inv));
-				entityManager.persist(new Route("10", "Sebaldsbrück", stations10));
-				entityManager.persist(new Route("10", "Gröpelingen", stations10inv));
-			}
-			transaction.commit();
-		}catch(Exception e){
-			e.printStackTrace();
-			System.out.println(e.getMessage());
-		}
+
 	}
 
 	public SearchHandler(){
 		searchResult = new ArrayList<>();
 	}
 	
+	/**
+	 * Searches for a Trip between the start and target stations that arrives before the set time. 
+	 * Results will be added to the searchResult list. Any previous values in the list will be removed.
+	 */
+	@SuppressWarnings("unchecked")
 	public void search(){
-		searchResult.add(new SearchResult("a", "b", "c", "d"));
+		try{
+			transaction.begin();
+			searchResult.clear();
+			if(start != null && target != null && time != null){
+				
+				//find matching routes
+				Query q = entityManager.createQuery("select k from Route k where :start MEMBER OF k.stations and :target MEMBER OF k.stations");
+				List<Route> routes = q.setParameter("start", start).setParameter("target", target).getResultList();
+				if(routes.isEmpty()){
+					System.out.println("no route found");
+				}
+				
+				//select those routes that go in the desired direction
+				List<Route> validRoutes = new ArrayList<Route>();
+				for(Route route : routes){
+					for(Station station : route.getStations()){
+						if(station.equals(start)){
+							//stations in right order
+							validRoutes.add(route);
+							break;
+						}
+						if(station.equals(target)){
+							//stations in wrong order
+							break;
+						}
+					}
+				}
+				
+				//find best trip in routes
+				Trip bestTrip = null;
+				int bestTime = Integer.MAX_VALUE;
+				if(!validRoutes.isEmpty()){
+					for(Route route : validRoutes){
+						List<Trip> trips = entityManager.createQuery("select k from Trip k where k.route = :route").setParameter("route", route).getResultList();
+						for(Trip trip : trips){
+							int tripTime = ClockTime.timeBetween(trip.getTime(target), this.time.getMinutes());
+							if(tripTime < bestTime){
+								bestTrip = trip;
+								bestTime = tripTime;
+							}
+						}
+					}
+				}else{
+					System.out.println("no valid route found");
+				}
+				
+				//a matching trip has been found
+				if(bestTrip != null){
+					searchResult.add(new SearchResult(start, bestTrip.getRoute(), new ClockTime(bestTrip.getTime(start))));
+					searchResult.add(new SearchResult(target, bestTrip.getRoute(), new ClockTime(bestTrip.getTime(target))));
+				}else{
+					System.out.println("no trip found");
+				}
+			}
+			transaction.commit();
+		}catch(Exception e){
+			e.printStackTrace();
+		}
 	}
 	
-	public void doIt(){
-		System.out.println("---------------test-------------");
-	}
-
+	/**
+	 * Looks up and returns a list of Stations (generally none or one) with the given name.
+	 * @param name
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
 	public List<Station> searchStation(String name){
-		
-		Query q = entityManager.createQuery("select k from Station k where k.name = :name");
-		
-		q.setParameter("name", name);
-		return q.getResultList();
+		return entityManager.createQuery("select k from Station k where k.name = :name").setParameter("name", name).getResultList();
 	}
 
 	public ArrayList<SearchResult> getSearchResult() {

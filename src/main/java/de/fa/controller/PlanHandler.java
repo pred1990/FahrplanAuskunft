@@ -11,12 +11,16 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 import javax.transaction.UserTransaction;
 
 import de.fa.model.Route;
 import de.fa.model.Station;
 
+/**
+ * Backing bean for the route viewer page.
+ * @author Daniel
+ *
+ */
 @ManagedBean
 @SessionScoped
 public class PlanHandler {
@@ -33,57 +37,37 @@ public class PlanHandler {
 	@Resource
 	private UserTransaction transaction;
 	
-	
+	/**
+	 * Loads all available routes.
+	 */
 	@PostConstruct
 	public void init(){
 		try{
-			loadRoutesList();
-//			showRoute();
+			transaction.begin();
+			@SuppressWarnings("unchecked")
+			List<Route> results = entityManager.createQuery("select k from Route k").getResultList();
+			if(results != null && !results.isEmpty()){
+				routeList = new TreeMap<String, Route>();
+				for(Route r : results){
+					r.getStations().size();		//call size to make JPA actually load the content of the list
+					routeList.put(r.toString(), r);
+				}
+			}
+			transaction.commit();
 		}catch(Exception e){
 			System.out.println("Exception! - " + e.getMessage());
 		}
 	}
-	
-	private void loadRoutesList() throws Exception {
-		transaction.begin();
-		Query q = entityManager.createQuery("select k from Route k");
-		List<Route> results = q.getResultList();
-		if(results != null && !results.isEmpty()){
-			routeList = new TreeMap<String, Route>();
-			for(Route r : results){
-				r.getStations().size();		//call size to make JPA actually load the content of the list
-				routeList.put(r.toString(), r);
-			}
-		}
-		transaction.commit();
-	}
-	
-//	private void showRoute() throws Exception {
-//		transaction.begin();
-//		Query q = entityManager.createQuery("select k from Route k where k.name = :name AND k.direction = :direction");
-//		q.setParameter("name", "2");
-//		q.setParameter("direction", "Sebaldsbrück");
-//		routeSelected = (Route) q.getSingleResult();
-//		if(routeSelected != null){
-//			List<Station> stationList = routeSelected.getStations();
-//			if(stationList != null){
-//				stations.size();	//call size() to make JPA actually load the content of the list
-//				stations = stationList;
-//			}
-//		}else{
-//			System.out.println("route nicht gefunden...");
-//		}
-//		transaction.commit();
-//	}
 	
 	public PlanHandler(){
 		stations = Collections.emptyList();
 		routeList = Collections.emptyMap();
 	}
 	
-	public void beep(){
-		System.out.println("boop");
-		System.out.println("selected route: " + (routeSelected == null ? "null" : routeSelected.toString()));
+	/**
+	 * Displays the stations of the selected route.
+	 */
+	public void display(){
 		if(routeSelected != null){
 			stations = routeList.get(routeSelected).getStations();
 		}else{

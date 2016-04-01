@@ -2,47 +2,39 @@ package de.fa.model;
 
 import java.io.Serializable;
 
+/**
+ * Instances of this class are displayed as results when using the route search page (search.xhtml).
+ * A SearchResult has a station, a line and a time of arrival/departure.
+ * @author Daniel
+ *
+ */
 public class SearchResult implements Serializable{
 	
 	private static final long serialVersionUID = 762560152864528174L;
-	private String departure;
-	private String arrival;
 	private String station;
-	private String line;
+	private String route;
+	private String time;
 	
+	public SearchResult(){}
 	
-	public SearchResult(){
-		
+	public SearchResult(Station station, Route route, ClockTime time){
+		this(station.toString(), route.toString(), time.toString());
 	}
-	/*
-	public SearchResult(ClockTime departure, ClockTime arrival, String station, String line){
-		this.departure = departure;
-		this.arrival = arrival;
+	
+	public SearchResult(String station, String line, String time){
 		this.station = station;
-		this.line = line;
-	}
-	*/
-	public SearchResult(String departure, String arrival, String station, String line){
-		this.departure = departure;
-		this.arrival = arrival;
-		this.station = station;
-		this.line = line;
+		this.route = line;
+		this.time = time;
 	}
 
+	public String getTime() {
+		return time;
+	}
 	
+	public void setTime(String time) {
+		this.time = time;
+	}
 	
-	public String getDeparture() {
-		return departure;
-	}
-	public void setDepature(String departure) {
-		this.departure = departure;
-	}
-	public String getArrival() {
-		return arrival;
-	}
-	public void setArrival(String arrival) {
-		this.arrival = arrival;
-	}
 	public String getStation() {
 		return station;
 	}
@@ -52,13 +44,11 @@ public class SearchResult implements Serializable{
 	}
 
 	public String getLine() {
-		return line;
+		return route;
 	}
 
 	public void setLine(String line) {
-		this.line = line;
+		this.route = line;
 	}
-	
-	
 	
 }

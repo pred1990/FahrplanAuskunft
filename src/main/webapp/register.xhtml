@@ -23,7 +23,9 @@
 				<h:panelGrid columns="2">
 					<h:outputText value="#{msg.user}:" />
 					<h:panelGroup>
-						<h:inputText id="user" value="#{loginHandler.name}" required="true" requiredMessage="Pflichtfeld" />
+						<h:inputText id="user" value="#{loginHandler.name}" required="true" requiredMessage="Pflichtfeld">
+							<f:validateLength minimum="0" maximum="40" />
+						</h:inputText>
 						<h:message for="user" styleClass="message" />
 					</h:panelGroup>
 
