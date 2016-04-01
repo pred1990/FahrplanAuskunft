@@ -37,7 +37,7 @@ public class ClockTime implements Serializable {
 	
 	public ClockTime(Integer minutes){
 		if(minutes >= MAX_VALUE){
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("argument minutes '" + minutes + "' exceeds maximum value of " + ClockTime.MAX_VALUE);
 		}
 		this.minutes = minutes;
 	}

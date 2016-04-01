@@ -30,7 +30,7 @@
 
       <properties>
          <!-- Properties for Hibernate -->
-         <property name="hibernate.hbm2ddl.auto" value="update" /><!-- change to "update" once DDL is fixed; as it is, the tables are dropped on start ("create")-->
+         <property name="hibernate.hbm2ddl.auto" value="create" /><!-- change to "update" once DDL is fixed; as it is, the tables are dropped on start ("create")-->
          <property name="hibernate.show_sql" value="true" />
       </properties>
    </persistence-unit>

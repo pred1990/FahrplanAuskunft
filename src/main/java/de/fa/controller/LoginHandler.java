@@ -152,7 +152,8 @@ public class LoginHandler {
 				while(nextTime < ClockTime.MAX_VALUE){
 					List<Integer> times = new ArrayList<Integer>();
 					for(int i = 0; i < route.getStations().size(); ++i){
-						times.add(nextTime + i * timeBetweenStations);
+						int insTime = nextTime + i * timeBetweenStations ;
+						times.add(insTime < ClockTime.MAX_VALUE ? insTime : insTime - ClockTime.MAX_VALUE);
 					}
 					
 					Trip trip = new Trip();
